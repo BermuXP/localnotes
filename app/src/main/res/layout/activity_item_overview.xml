@@ -1,5 +1,4 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
@@ -8,19 +7,45 @@
         android:id="@+id/titleEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:autofillHints=""
         android:hint="@string/title_hint"
-        android:textSize="18sp"
-        android:textStyle="bold"
         android:inputType="textCapSentences"
-        android:autofillHints="" />
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
-    <EditText
+    <LinearLayout
+        android:id="@+id/rte_toolbar_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/rte_toolbar_character" />
+
+        <include layout="@layout/rte_toolbar_paragraph" />
+
+    </LinearLayout>
+
+    <com.onegravity.rteditor.RTEditText
         android:id="@+id/descriptionEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/titleEditText"
         android:layout_marginTop="8dp"
+        android:autofillHints=""
         android:hint="@string/description_hint"
-        android:inputType="textMultiLine"
-        android:autofillHints="" />
+        android:imeOptions="actionDone|flagNoEnterAction"
+        android:inputType="textMultiLine|textAutoCorrect|textCapSentences" />
+
+    <Button
+        android:id="@+id/saveNoteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:background="@drawable/rounded_button"
+        android:backgroundTint="@color/green"
+        android:text="@string/save_note"
+        android:textColor="@color/white"
+        android:visibility="gone" />
 </RelativeLayout>

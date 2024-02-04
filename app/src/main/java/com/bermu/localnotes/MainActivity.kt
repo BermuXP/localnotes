@@ -1,10 +1,13 @@
 package com.bermu.localnotes
 
-import ItemData
+import NoteData
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bermu.localnotes.db.NotesHandler
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,15 +15,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        val items = listOf(
-            ItemData("Item 1", "Description 1"),
-            ItemData("Item 2", "Description 2"),
-        )
+        val noteList = NotesHandler(this).getAllData()
 
-        val adapter = NoteAdapter(this, items)
-        recyclerView.adapter = adapter
+        findViewById<Button>(R.id.addNoteButton).setOnClickListener {
+            val intent = Intent(this, NoteActivity::class.java)
+            startActivity(intent)
+        }
+
+        recyclerView.adapter = NoteAdapter(this, noteList)
     }
 }

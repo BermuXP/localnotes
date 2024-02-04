@@ -1,6 +1,6 @@
 package com.bermu.localnotes
 
-import ItemData
+import NoteData
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 import android.content.Context
 
-class NoteAdapter(private val context: Context, private val items: List<ItemData>) :
+class NoteAdapter(private val context: Context, private val items: List<NoteData>) :
     RecyclerView.Adapter<NoteAdapter.ItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -26,9 +26,8 @@ class NoteAdapter(private val context: Context, private val items: List<ItemData
         holder.descriptionTextView.text = currentItem.description
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(context, ItemOverviewActivity::class.java)
-            intent.putExtra("title", currentItem.title)
-            intent.putExtra("description", currentItem.description)
+            val intent = Intent(context, NoteActivity::class.java)
+            intent.putExtra("id", currentItem.id)
             context.startActivity(intent)
         }
     }
@@ -38,7 +37,7 @@ class NoteAdapter(private val context: Context, private val items: List<ItemData
     }
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val titleTextView: TextView = itemView.findViewById(R.id.textTitle)
-        val descriptionTextView: TextView = itemView.findViewById(R.id.textDescription)
+        val titleTextView = itemView.findViewById<TextView>(R.id.textTitle)
+        val descriptionTextView = itemView.findViewById<TextView>(R.id.textDescription)
     }
 }

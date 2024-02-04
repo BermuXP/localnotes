@@ -68,4 +68,5 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     implementation("androidx.sqlite:sqlite-ktx:2.4.0")
+    implementation("com.1gravity:android-rteditor:1.8.0")
 }

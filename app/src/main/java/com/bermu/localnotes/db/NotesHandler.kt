@@ -1,5 +1,6 @@
 package com.bermu.localnotes.db
 
+import NoteData
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
@@ -19,9 +20,9 @@ class NotesHandler(context: Context) {
         db.close()
     }
 
-    fun getAllData(): Cursor {
+    fun getAllData(): List<NoteData> {
         val db = dbHelper.readableDatabase
-        return db.query(
+        val cursor = db.query(
             Note.MyTable.TABLE_NAME,
             null,
             null,
@@ -30,13 +31,49 @@ class NotesHandler(context: Context) {
             null,
             null
         )
+        val noteList = mutableListOf<NoteData>()
+        while (cursor.moveToNext()) {
+            val id = cursor.getLong(cursor.getColumnIndexOrThrow(Note.MyTable.COLUMN_ID))
+            val title = cursor.getString(cursor.getColumnIndexOrThrow(Note.MyTable.COLUMN_TITLE))
+            val description =
+                cursor.getString(cursor.getColumnIndexOrThrow(Note.MyTable.COLUMN_DESCRIPTION))
+            noteList.add(NoteData(id, title, description))
+        }
+        cursor.close()
+        db.close()
+        return noteList
     }
 
-    fun updateData(id: Long, name: String, age: Int) {
+    fun getSpecificData(noteId: Long): NoteData {
+        val db = dbHelper.readableDatabase
+        val cursor = db.query(
+            Note.MyTable.TABLE_NAME,
+            null,
+            "${Note.MyTable.COLUMN_ID}=?",
+            arrayOf(noteId.toString()),
+            null,
+            null,
+            null
+        )
+        var note = NoteData(0, "", "")
+        if (cursor.moveToFirst()) {
+            val id = cursor.getLong(cursor.getColumnIndexOrThrow(Note.MyTable.COLUMN_ID))
+            val title = cursor.getString(cursor.getColumnIndexOrThrow(Note.MyTable.COLUMN_TITLE))
+            val description =
+                cursor.getString(cursor.getColumnIndexOrThrow(Note.MyTable.COLUMN_DESCRIPTION))
+            note = NoteData(id, title, description)
+        }
+
+        cursor.close()
+        db.close()
+        return note
+    }
+
+    fun updateData(id: Long, title: String, description: String) {
         val db = dbHelper.writableDatabase
         val values = ContentValues().apply {
-            put(Note.MyTable.COLUMN_TITLE, name)
-            put(Note.MyTable.COLUMN_DESCRIPTION, age)
+            put(Note.MyTable.COLUMN_TITLE, title)
+            put(Note.MyTable.COLUMN_DESCRIPTION, description)
         }
         db.update(
             Note.MyTable.TABLE_NAME,
