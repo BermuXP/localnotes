@@ -1,0 +1,1 @@
+data class ItemData(val title: String, val description: String)
