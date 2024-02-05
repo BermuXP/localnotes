@@ -13,28 +13,24 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <LinearLayout
-        android:id="@+id/rte_toolbar_container"
+    <RelativeLayout
+        android:id="@+id/rteContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-        <include layout="@layout/rte_toolbar_character" />
-
-        <include layout="@layout/rte_toolbar_paragraph" />
-
-    </LinearLayout>
-
-    <com.onegravity.rteditor.RTEditText
-        android:id="@+id/descriptionEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/titleEditText"
-        android:layout_marginTop="8dp"
-        android:autofillHints=""
-        android:hint="@string/description_hint"
-        android:imeOptions="actionDone|flagNoEnterAction"
-        android:inputType="textMultiLine|textAutoCorrect|textCapSentences" />
+        <com.onegravity.rteditor.RTEditText
+            android:id="@+id/descriptionEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:autofillHints=""
+            android:hint="@string/description_hint"
+            android:imeOptions="actionDone|flagNoEnterAction"
+            android:inputType="textMultiLine|textAutoCorrect|textCapSentences" />
+    </RelativeLayout>
 
     <Button
         android:id="@+id/saveNoteButton"

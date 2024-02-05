@@ -1,8 +1,7 @@
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:padding="16dp">
 
     <TextView
@@ -10,11 +9,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
+        android:maxLength="15"
         android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/textDescription"
         android:layout_width="match_parent"
+        android:maxLength="25"
         android:layout_height="wrap_content"
+        android:layout_below="@id/textTitle"
         android:layout_marginTop="8dp"/>
-</LinearLayout>
+
+    <ImageButton
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_alignEnd="@id/textDescription"
+        android:layout_alignBottom="@id/textDescription"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_delete"
+        android:contentDescription="@string/delete_button_description"/>
+
+</RelativeLayout>
